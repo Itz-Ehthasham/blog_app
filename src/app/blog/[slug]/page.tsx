@@ -41,32 +41,30 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   let post = getBlogPostBySlug(slug);
 
-  // If not found in static data, try fetching from MongoDB
+  // If not found in static data, try fetching from MongoDB using new slug API
   if (!post) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/posts`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/blogs/${slug}`, {
         cache: 'no-store'
       });
       if (response.ok) {
         const data = await response.json();
         if (data.success && data.data) {
-          const mongoPost = data.data.find((p: any) => p.slug === slug);
-          if (mongoPost) {
-            post = {
-              id: mongoPost._id,
-              title: mongoPost.title,
-              description: mongoPost.description,
-              image: mongoPost.image,
-              date: new Date(mongoPost.date).getTime(),
-              category: mongoPost.category,
-              author: mongoPost.author,
-              author_img: mongoPost.author_img,
-              slug: mongoPost.slug,
-              content: mongoPost.content,
-              readTime: mongoPost.readTime,
-              tags: mongoPost.tags
-            } as BlogPost;
-          }
+          const mongoPost = data.data;
+          post = {
+            id: mongoPost._id,
+            title: mongoPost.title,
+            description: mongoPost.description,
+            image: mongoPost.image,
+            date: new Date(mongoPost.date || mongoPost.createdAt).getTime(),
+            category: mongoPost.category,
+            author: mongoPost.author,
+            author_img: mongoPost.author_img,
+            slug: mongoPost.slug,
+            content: mongoPost.content,
+            readTime: mongoPost.readTime,
+            tags: mongoPost.tags
+          } as BlogPost;
         }
       }
     } catch (error) {

@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const blogSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     description: {
         type: String,
@@ -11,7 +12,8 @@ const blogSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     author: {
         type: String,
@@ -31,7 +33,9 @@ const blogSchema = new mongoose.Schema({
     },
     slug: {
         type: String,
-        required: false
+        required: false,
+        unique: true,
+        sparse: true
     },
     content: {
         introduction: String,
@@ -42,10 +46,13 @@ const blogSchema = new mongoose.Schema({
         conclusion: String
     },
     readTime: String,
-    tags: [String]
+    tags: { type: [String], index: true }
 }, {
     timestamps: true  // This adds createdAt and updatedAt fields
 });
+
+// Additional indexes
+blogSchema.index({ createdAt: -1 });
 
 // Generate slug before saving
 blogSchema.pre('save', function(next) {

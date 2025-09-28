@@ -25,6 +25,7 @@ export default function AddBlogPage() {
   const [blogCategory, setBlogCategory] = useState('');
   const [blogContent, setBlogContent] = useState('');
   const [blogTags, setBlogTags] = useState('');
+  const [blogImage, setBlogImage] = useState('');
   const [blogLoading, setBlogLoading] = useState(false);
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -71,6 +72,7 @@ export default function AddBlogPage() {
     setBlogCategory('');
     setBlogContent('');
     setBlogTags('');
+    setBlogImage('');
   };
 
   const handleBlogSubmit = async (e: React.FormEvent) => {
@@ -90,7 +92,8 @@ export default function AddBlogPage() {
           category: blogCategory,
           content: blogContent,
           tags: blogTags,
-          userId: user.id
+          userId: user.id,
+          image: blogImage
         })
       });
 
@@ -105,6 +108,7 @@ export default function AddBlogPage() {
         setBlogCategory('');
         setBlogContent('');
         setBlogTags('');
+        setBlogImage('');
         // Redirect to the new blog post after 2 seconds
         setTimeout(() => {
           router.push(`/blog/${data.data.slug}`);
@@ -243,6 +247,21 @@ export default function AddBlogPage() {
                   placeholder="TAG1, TAG2, TAG3"
                   disabled={blogLoading}
                 />
+              </div>
+
+              <div>
+                <label className="block text-white font-bold mb-2 uppercase tracking-wide">
+                  Image URL (optional)
+                </label>
+                <input
+                  type="url"
+                  value={blogImage}
+                  onChange={(e) => setBlogImage(e.target.value)}
+                  className="w-full p-4 border-4 border-black bg-white text-black font-bold uppercase tracking-wide focus:outline-none focus:shadow-custom-lg"
+                  placeholder="https://example.com/your-image.png"
+                  disabled={blogLoading}
+                />
+                <p className="text-gray-400 text-xs mt-2 uppercase">If not provided, a default image will be used.</p>
               </div>
 
               <div className="flex gap-4">

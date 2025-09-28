@@ -19,9 +19,9 @@ export function useBlogData(): UseBlogDataReturn {
       setLoading(true);
       setError(null);
       
-      // Try to fetch from MongoDB first
+      // Try to fetch from MongoDB first using new paginated API
       try {
-        const response = await fetch('/api/posts');
+        const response = await fetch('/api/blogs?limit=50'); // Get up to 50 posts for homepage
         if (response.ok) {
           const result = await response.json();
           if (result.success && result.data && result.data.length > 0) {
@@ -31,7 +31,7 @@ export function useBlogData(): UseBlogDataReturn {
               title: post.title,
               description: post.description,
               image: post.image,
-              date: new Date(post.date).getTime(),
+              date: new Date(post.date || post.createdAt).getTime(),
               category: post.category,
               author: post.author,
               author_img: post.author_img,

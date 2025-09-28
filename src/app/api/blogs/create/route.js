@@ -6,7 +6,7 @@ import User from "../../../../../models/UserModel.js";
 export async function POST(request) {
   try {
     await connectDB();
-    const { title, description, category, content, tags, userId } = await request.json();
+    const { title, description, category, content, tags, userId, image } = await request.json();
     
     // Validate required fields
     if (!title || !description || !category || !content || !userId) {
@@ -32,7 +32,7 @@ export async function POST(request) {
       category,
       author: user.firstName,
       author_img: "/assets/profile_icon.png", // Default author image
-      image: `/assets/blog_pic_${Math.floor(Math.random() * 16) + 1}.png`, // Random blog image
+      image: image && image.trim() ? image.trim() : `/assets/blog_pic_${Math.floor(Math.random() * 16) + 1}.png`, // Use provided or random
       tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
       content: {
         introduction: content.substring(0, 200) + "...", // First 200 chars as intro
