@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function HeroSection() {
   return (
     <section className="bg-black py-20 border-b-4 border-white">
@@ -13,15 +15,18 @@ export default function HeroSection() {
             DISCOVER AMAZING STORIES, INSIGHTS, AND IDEAS FROM OUR COMMUNITY OF PASSIONATE WRITERS
           </p>
           <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center">
-            <a 
+            <Link 
               href="/blogs" 
               className="bg-white text-black px-10 py-5 font-black text-xl uppercase tracking-wider border-4 border-black shadow-custom-lg hover:bg-gray-200 transition-all duration-200 transform hover:-translate-x-1 hover:-translate-y-1"
             >
               EXPLORE ALL POSTS
-            </a>
-            <button className="bg-black text-white px-10 py-5 font-black text-xl uppercase tracking-wider border-4 border-white shadow-custom-white hover:bg-gray-900 transition-all duration-200 transform hover:-translate-x-1 hover:-translate-y-1">
-              SUBSCRIBE NOW
-            </button>
+            </Link>
+            <Link 
+              href="/add-blog"
+              className="bg-black text-white px-10 py-5 font-black text-xl uppercase tracking-wider border-4 border-white shadow-custom-white hover:bg-gray-900 transition-all duration-200 transform hover:-translate-x-1 hover:-translate-y-1"
+            >
+              CREATE A POST
+            </Link>
           </div>
         </div>
       </div>
