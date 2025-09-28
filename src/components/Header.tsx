@@ -4,7 +4,7 @@ import { assets } from '@/lib/assets';
 
 export default function Header() {
   return (
-    <header className="py-5 px-5 md:px-12 lg:px-20 shadow-sm border-b">
+    <header className="py-4 px-5 md:px-12 lg:px-20 bg-white border-b border-gray-100 shadow-sm">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <Link href="/" className="flex items-center">
           <Image
@@ -17,17 +17,23 @@ export default function Header() {
           />
         </Link>
         
-        <div className="flex items-center gap-4">
+        <nav className="flex items-center gap-6">
           <Link 
             href="/" 
-            className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+            className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200"
           >
             Home
           </Link>
-          <button className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors font-medium">
+          <Link 
+            href="/blogs" 
+            className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200"
+          >
+            Blogs
+          </Link>
+          <button className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium shadow-sm hover:shadow">
             Subscribe
           </button>
-        </div>
+        </nav>
       </div>
     </header>
   );

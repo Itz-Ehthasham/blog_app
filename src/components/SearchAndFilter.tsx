@@ -26,18 +26,18 @@ export default function SearchAndFilter({ onSearch, onFilter, currentCategory }:
   return (
     <div className="mb-8">
       {/* Search Bar */}
-      <div className="mb-6">
-        <div className="relative max-w-md mx-auto">
+      <div className="mb-8">
+        <div className="relative max-w-lg mx-auto">
           <input
             type="text"
             placeholder="Search blog posts..."
             value={searchTerm}
             onChange={handleSearchChange}
-            className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-6 py-4 pl-12 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm text-lg placeholder-gray-400"
           />
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
             <svg 
-              className="h-5 w-5 text-gray-400" 
+              className="h-6 w-6 text-gray-400" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -54,25 +54,25 @@ export default function SearchAndFilter({ onSearch, onFilter, currentCategory }:
       </div>
 
       {/* Category Filter */}
-      <div className="flex flex-wrap justify-center gap-2 mb-4">
+      <div className="flex flex-wrap justify-center gap-3 mb-6">
         <button
           onClick={() => handleCategoryFilter('All')}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+          className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200 ${
             currentCategory === 'All'
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-blue-600 text-white shadow-md hover:bg-blue-700'
+              : 'bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 border border-gray-200 hover:border-blue-200'
           }`}
         >
-          All
+          All Categories
         </button>
         {categories.map((category) => (
           <button
             key={category}
             onClick={() => handleCategoryFilter(category)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200 ${
               currentCategory === category
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-blue-600 text-white shadow-md hover:bg-blue-700'
+                : 'bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 border border-gray-200 hover:border-blue-200'
             }`}
           >
             {category}

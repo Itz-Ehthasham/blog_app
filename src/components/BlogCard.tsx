@@ -19,7 +19,7 @@ export default function BlogCard({ post }: BlogCardProps) {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden group">
+    <div className="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group hover:border-blue-100">
       {/* Image */}
       <div className="relative overflow-hidden">
         <Image
@@ -27,50 +27,54 @@ export default function BlogCard({ post }: BlogCardProps) {
           alt={post.title}
           width={400}
           height={250}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute top-3 left-3">
-          <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full font-medium">
+        <div className="absolute top-4 left-4">
+          <span className="bg-blue-600 text-white text-xs px-3 py-1.5 rounded-full font-medium shadow-lg">
             {post.category}
           </span>
         </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       
       {/* Content */}
-      <div className="p-5">
-        <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 hover:text-blue-600 transition-colors">
+      <div className="p-6">
+        <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors leading-tight">
           <Link href={`/blog/${post.slug}`}>
             {post.title}
           </Link>
         </h2>
         
-        <p className="text-gray-600 mb-4 line-clamp-3">
+        <p className="text-gray-600 mb-5 line-clamp-3 leading-relaxed">
           {post.description}
         </p>
         
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between pt-4 border-t border-gray-50">
+          <div className="flex items-center gap-3">
             <Image
               src={post.author_img}
               alt={post.author}
-              width={24}
-              height={24}
+              width={28}
+              height={28}
               className="rounded-full"
             />
-            <span className="text-sm text-gray-700 font-medium">{post.author}</span>
+            <div>
+              <p className="text-sm text-gray-800 font-medium">{post.author}</p>
+              <p className="text-xs text-gray-500">{formatDate(post.date)}</p>
+            </div>
           </div>
           
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500">{formatDate(post.date)}</span>
-            <Link href={`/blog/${post.slug}`} className="hover:opacity-70 transition-opacity">
-              <Image
-                src={assets.arrow}
-                alt="Read more"
-                width={16}
-                height={16}
-              />
-            </Link>
-          </div>
+          <Link 
+            href={`/blog/${post.slug}`} 
+            className="text-blue-600 hover:text-blue-800 transition-colors p-2 hover:bg-blue-50 rounded-lg"
+          >
+            <Image
+              src={assets.arrow}
+              alt="Read more"
+              width={18}
+              height={18}
+            />
+          </Link>
         </div>
       </div>
     </div>
