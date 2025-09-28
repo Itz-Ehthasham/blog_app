@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { BlogPost } from '@/lib/assets';
 
 interface LatestPostSectionProps {
@@ -53,12 +54,12 @@ export default function LatestPostSection({ latestPost }: LatestPostSectionProps
                     <p className="text-sm text-gray-400 uppercase font-bold">{new Date(latestPost.date).toLocaleDateString()}</p>
                   </div>
                 </div>
-                <a 
-                  href={`/blog/${latestPost.slug}`}
+                <Link 
+                  href={`/blog/${latestPost.slug || 'post-not-found'}`}
                   className="bg-white text-black px-6 py-3 font-black uppercase tracking-wider border-4 border-black shadow-custom hover:bg-gray-200 transition-all duration-200"
                 >
                   READ MORE
-                </a>
+                </Link>
               </div>
             </div>
           </div>

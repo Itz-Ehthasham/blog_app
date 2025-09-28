@@ -1,13 +1,19 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { BlogPost } from '@/lib/assets';
 import { assets } from '@/lib/assets';
+import BlogDetailModal from './BlogDetailModal';
 
 interface BlogCardProps {
   post: BlogPost;
 }
 
 export default function BlogCard({ post }: BlogCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Format date
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp);
@@ -17,6 +23,9 @@ export default function BlogCard({ post }: BlogCardProps) {
       day: 'numeric'
     });
   };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div className="bg-black border-4 border-white shadow-custom-white hover:shadow-custom-lg transition-all duration-300 overflow-hidden group">
@@ -66,20 +75,43 @@ export default function BlogCard({ post }: BlogCardProps) {
             </div>
           </div>
           
-          <Link 
-            href={`/blog/${post.slug}`} 
-            className="bg-white text-black p-3 border-2 border-black shadow-custom-sm hover:bg-gray-200 transition-all duration-200"
-          >
-            <Image
-              src={assets.arrow}
-              alt="Read more"
-              width={18}
-              height={18}
-              className="filter invert"
-            />
-          </Link>
+          <div className="flex gap-2">
+            {/* Quick View Modal Button */}
+            <button 
+              onClick={openModal}
+              className="bg-white text-black p-3 border-2 border-black shadow-custom-sm hover:bg-gray-200 transition-all duration-200"
+              title="Quick view"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </button>
+            
+            {/* Read Full Article Link */}
+            <Link 
+              href={`/blog/${post.slug}`} 
+              className="bg-white text-black p-3 border-2 border-black shadow-custom-sm hover:bg-gray-200 transition-all duration-200"
+              title="Read full article"
+            >
+              <Image
+                src={assets.arrow}
+                alt="Read more"
+                width={18}
+                height={18}
+                className="filter invert brightness-1000"
+              />
+            </Link>
+          </div>
         </div>
       </div>
+      
+      {/* Blog Detail Modal */}
+      <BlogDetailModal 
+        post={post}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   );
 }

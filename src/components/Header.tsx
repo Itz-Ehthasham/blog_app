@@ -25,9 +25,12 @@ export default function Header() {
           >
             Blogs
           </Link>
-          <button className="bg-white text-black px-6 py-3 font-bold uppercase tracking-wider border-thick border-black shadow-custom hover:bg-gray-200 transition-all duration-200">
-            Subscribe
-          </button>
+          <Link 
+            href="/add-blog"
+            className="bg-white text-black px-6 py-3 font-bold uppercase tracking-wider border-thick border-black shadow-custom hover:bg-gray-200 transition-all duration-200"
+          >
+            Add Blog
+          </Link>
         </nav>
       </div>
     </header>

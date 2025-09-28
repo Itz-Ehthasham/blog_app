@@ -19,13 +19,36 @@ export function useBlogData(): UseBlogDataReturn {
       setLoading(true);
       setError(null);
       
-      // TODO: Replace with actual MongoDB API call
-      // const response = await fetch('/api/posts');
-      // if (!response.ok) throw new Error('Failed to fetch posts');
-      // const data = await response.json();
-      // setPosts(data);
+      // Try to fetch from MongoDB first
+      try {
+        const response = await fetch('/api/posts');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success && result.data && result.data.length > 0) {
+            // Transform MongoDB data to match our BlogPost interface
+            const transformedPosts = result.data.map((post: any) => ({
+              id: post._id,
+              title: post.title,
+              description: post.description,
+              image: post.image,
+              date: new Date(post.date).getTime(),
+              category: post.category,
+              author: post.author,
+              author_img: post.author_img,
+              slug: post.slug,
+              content: post.content,
+              readTime: post.readTime,
+              tags: post.tags
+            }));
+            setPosts(transformedPosts);
+            return;
+          }
+        }
+      } catch (apiError) {
+        console.warn('MongoDB API failed, falling back to static data:', apiError);
+      }
       
-      // For now, use static data with simulated delay
+      // Fallback to static data with simulated delay
       await new Promise(resolve => setTimeout(resolve, 500));
       setPosts(blog_data);
       

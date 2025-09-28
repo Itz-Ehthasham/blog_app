@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import BlogCard from './BlogCard';
 import { BlogPost } from '@/lib/assets';
 
@@ -24,7 +25,7 @@ export default function FeaturedPostsSection({
             <h2 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-wider">FEATURED POSTS</h2>
             <p className="text-xl text-gray-300 uppercase tracking-wide font-bold">HANDPICKED ARTICLES JUST FOR YOU</p>
           </div>
-          <a 
+          <Link 
             href="/blogs"
             className="bg-white text-black px-6 py-4 font-black text-lg uppercase tracking-wider border-4 border-black shadow-custom hover:bg-gray-200 transition-all duration-200 flex items-center gap-3"
           >
@@ -32,7 +33,7 @@ export default function FeaturedPostsSection({
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={4}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
-          </a>
+          </Link>
         </div>
 
         {/* Results Info */}
@@ -89,12 +90,12 @@ export default function FeaturedPostsSection({
         {/* Show more button */}
         {featuredPosts.length > 0 && featuredPosts.length === 6 && !searchTerm && selectedCategory === 'All' && (
           <div className="text-center mt-16">
-            <a 
+            <Link 
               href="/blogs"
               className="bg-white text-black px-8 py-4 font-black text-xl uppercase tracking-wider border-4 border-black shadow-custom hover:bg-gray-200 transition-all duration-200"
             >
               VIEW ALL {totalPosts} POSTS
-            </a>
+            </Link>
           </div>
         )}
       </div>
