@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
-  --foreground: #1f2937;
+  --background: #000000;
+  --foreground: #ffffff;
+  --card-bg: #000000;
+  --border-color: #333333;
 }
 
 @theme inline {
@@ -16,6 +18,27 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+}
+
+/* Black and White Theme Utilities */
+.shadow-custom {
+  box-shadow: -7px -7px 0 #000000;
+}
+
+.shadow-custom-white {
+  box-shadow: -7px -7px 0 #ffffff;
+}
+
+.shadow-custom-sm {
+  box-shadow: -3px -3px 0 #000000;
+}
+
+.shadow-custom-lg {
+  box-shadow: -10px -10px 0 #000000;
+}
+
+.border-thick {
+  border: 3px solid;
 }
 
 /* Custom line clamp utilities */

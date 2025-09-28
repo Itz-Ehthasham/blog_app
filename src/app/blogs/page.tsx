@@ -37,15 +37,15 @@ export default function BlogsPage() {
   };
 
   return (
-    <main className="py-8 bg-gray-50 min-h-screen">
+    <main className="py-12 bg-black min-h-screen">
       <div className="max-w-7xl mx-auto px-5 md:px-12 lg:px-20">
         {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            All Blog Posts
+        <div className="text-center mb-16">
+          <h1 className="text-6xl md:text-8xl font-black text-white mb-8 uppercase tracking-wider">
+            ALL BLOG POSTS
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Explore our collection of articles, tutorials, and insights across various topics
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto font-bold uppercase tracking-wide">
+            EXPLORE OUR COLLECTION OF ARTICLES, TUTORIALS, AND INSIGHTS ACROSS VARIOUS TOPICS
           </p>
         </div>
 
@@ -57,18 +57,18 @@ export default function BlogsPage() {
         />
 
         {/* Results Info */}
-        <div className="mb-8">
-          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-            <p className="text-gray-700 font-medium">
+        <div className="mb-10">
+          <div className="bg-white p-6 border-4 border-black shadow-custom">
+            <p className="text-black font-black uppercase tracking-wider text-lg">
               {filteredPosts.length === 0 
-                ? 'No posts found matching your criteria' 
-                : `Showing ${filteredPosts.length} of ${blog_data.length} ${filteredPosts.length === 1 ? 'post' : 'posts'}`
+                ? 'NO POSTS FOUND MATCHING YOUR CRITERIA' 
+                : `SHOWING ${filteredPosts.length} OF ${blog_data.length} ${filteredPosts.length === 1 ? 'POST' : 'POSTS'}`
               }
               {selectedCategory !== 'All' && (
-                <span className="text-blue-600"> in {selectedCategory}</span>
+                <span className="text-black"> IN {selectedCategory.toUpperCase()}</span>
               )}
               {searchTerm && (
-                <span className="text-blue-600"> matching &ldquo;{searchTerm}&rdquo;</span>
+                <span className="text-black"> MATCHING &ldquo;{searchTerm.toUpperCase()}&rdquo;</span>
               )}
             </p>
             {(searchTerm || selectedCategory !== 'All') && (
@@ -77,9 +77,9 @@ export default function BlogsPage() {
                   setSearchTerm('');
                   setSelectedCategory('All');
                 }}
-                className="mt-2 text-sm text-gray-500 hover:text-gray-700 underline"
+                className="mt-4 bg-black text-white px-4 py-2 font-bold uppercase tracking-wider border-2 border-white shadow-custom-white hover:bg-gray-900 transition-all duration-200"
               >
-                Clear all filters
+                CLEAR ALL FILTERS
               </button>
             )}
           </div>
@@ -87,31 +87,31 @@ export default function BlogsPage() {
 
         {/* Blog Posts Grid */}
         {filteredPosts.length > 0 ? (
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
             {filteredPosts.map((post) => (
               <BlogCard key={post.id} post={post} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-12">
-              <div className="text-gray-400 mb-6">
-                <svg className="mx-auto h-16 w-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <div className="text-center py-20">
+            <div className="bg-white border-4 border-black shadow-custom p-16">
+              <div className="text-black mb-8">
+                <svg className="mx-auto h-20 w-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">No posts found</h3>
-              <p className="text-gray-500 mb-6">
-                We couldn&apos;t find any posts matching your search criteria.
+              <h3 className="text-2xl font-black text-black mb-6 uppercase tracking-wider">NO POSTS FOUND</h3>
+              <p className="text-black mb-8 font-bold uppercase tracking-wide text-lg">
+                WE COULDN&apos;T FIND ANY POSTS MATCHING YOUR SEARCH CRITERIA.
               </p>
               <button 
                 onClick={() => {
                   setSearchTerm('');
                   setSelectedCategory('All');
                 }}
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                className="bg-black text-white px-8 py-4 font-black uppercase tracking-wider border-4 border-white shadow-custom-white hover:bg-gray-900 transition-all duration-200"
               >
-                Show all posts
+                SHOW ALL POSTS
               </button>
             </div>
           </div>
@@ -119,8 +119,8 @@ export default function BlogsPage() {
 
         {/* Load More Button (placeholder for future pagination) */}
         {filteredPosts.length > 0 && filteredPosts.length === blog_data.length && (
-          <div className="text-center mt-12">
-            <p className="text-gray-500">You&apos;ve reached the end of our blog posts!</p>
+          <div className="text-center mt-16">
+            <p className="text-white font-black uppercase tracking-wider text-xl">YOU&apos;VE REACHED THE END OF OUR BLOG POSTS!</p>
           </div>
         )}
       </div>

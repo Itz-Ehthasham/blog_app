@@ -4,33 +4,35 @@ import { assets } from '@/lib/assets';
 
 export default function Header() {
   return (
-    <header className="py-4 px-5 md:px-12 lg:px-20 bg-white border-b border-gray-100 shadow-sm">
+    <header className="py-6 px-5 md:px-12 lg:px-20 bg-black border-b-4 border-white">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <Link href="/" className="flex items-center">
-          <Image
-            src={assets.logo}
-            alt="Blog Logo"
-            width={180}
-            height={60}
-            priority
-            className="w-[130px] sm:w-auto"
-          />
+          <div className="bg-white p-2 border-thick border-black shadow-custom">
+            <Image
+              src={assets.logo}
+              alt="Blog Logo"
+              width={150}
+              height={50}
+              priority
+              className="w-[120px] sm:w-[150px] filter invert"
+            />
+          </div>
         </Link>
         
         <nav className="flex items-center gap-6">
           <Link 
             href="/" 
-            className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200"
+            className="text-white hover:text-gray-300 font-bold text-lg transition-colors duration-200 uppercase tracking-wide"
           >
             Home
           </Link>
           <Link 
             href="/blogs" 
-            className="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200"
+            className="text-white hover:text-gray-300 font-bold text-lg transition-colors duration-200 uppercase tracking-wide"
           >
             Blogs
           </Link>
-          <button className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium shadow-sm hover:shadow">
+          <button className="bg-white text-black px-6 py-3 font-bold uppercase tracking-wider border-thick border-black shadow-custom hover:bg-gray-200 transition-all duration-200">
             Subscribe
           </button>
         </nav>

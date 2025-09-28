@@ -42,27 +42,27 @@ export default function Home() {
   const latestPost = blog_data[0];
 
   return (
-    <main className="bg-white">
+    <main className="bg-black">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
+      <section className="bg-black py-20 border-b-4 border-white">
         <div className="max-w-7xl mx-auto px-5 md:px-12 lg:px-20">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Welcome to 
-              <span className="text-blue-600">BloggerApp</span>
+          <div className="text-center mb-16">
+            <h1 className="text-6xl md:text-8xl font-black text-white mb-8 leading-tight uppercase tracking-wider">
+              WELCOME TO 
+              <span className="block mt-4 bg-white text-black px-8 py-4 inline-block border-4 border-black shadow-custom-lg transform -rotate-2">BLOGGERAPP</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-              Discover amazing stories, insights, and ideas from our community of passionate writers
+            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12 font-bold uppercase tracking-wide">
+              DISCOVER AMAZING STORIES, INSIGHTS, AND IDEAS FROM OUR COMMUNITY OF PASSIONATE WRITERS
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center">
               <a 
                 href="/blogs" 
-                className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl"
+                className="bg-white text-black px-10 py-5 font-black text-xl uppercase tracking-wider border-4 border-black shadow-custom-lg hover:bg-gray-200 transition-all duration-200 transform hover:-translate-x-1 hover:-translate-y-1"
               >
-                Explore All Posts
+                EXPLORE ALL POSTS
               </a>
-              <button className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 font-semibold text-lg">
-                Subscribe Now
+              <button className="bg-black text-white px-10 py-5 font-black text-xl uppercase tracking-wider border-4 border-white shadow-custom-white hover:bg-gray-900 transition-all duration-200 transform hover:-translate-x-1 hover:-translate-y-1">
+                SUBSCRIBE NOW
               </button>
             </div>
           </div>
@@ -71,55 +71,57 @@ export default function Home() {
 
       {/* Featured Latest Post */}
       {latestPost && (
-        <section className="py-16 bg-white">
+        <section className="py-20 bg-black border-b-4 border-white">
           <div className="max-w-7xl mx-auto px-5 md:px-12 lg:px-20">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Latest Featured Post</h2>
-              <p className="text-xl text-gray-600">Don&apos;t miss our most recent article</p>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-wider">LATEST FEATURED POST</h2>
+              <p className="text-xl text-gray-300 uppercase tracking-wide font-bold">DON&apos;T MISS OUR MOST RECENT ARTICLE</p>
             </div>
             
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="bg-black border-4 border-white shadow-custom-white overflow-hidden">
               <div className="md:flex">
-                <div className="md:w-1/2">
+                <div className="md:w-1/2 border-r-4 border-white">
                   <Image 
                     src={latestPost.image} 
                     alt={latestPost.title}
                     width={600}
                     height={400}
-                    className="w-full h-64 md:h-full object-cover"
+                    className="w-full h-64 md:h-full object-cover filter grayscale"
                   />
                 </div>
                 <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-                  <div className="mb-4">
-                    <span className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
+                  <div className="mb-6">
+                    <span className="bg-white text-black text-sm px-4 py-2 font-black uppercase tracking-wider border-2 border-black shadow-custom-sm">
                       {latestPost.category}
                     </span>
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                  <h3 className="text-2xl md:text-4xl font-black text-white mb-6 leading-tight uppercase">
                     {latestPost.title}
                   </h3>
-                  <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                  <p className="text-gray-300 text-lg mb-8 leading-relaxed">
                     {latestPost.description}
                   </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Image 
-                        src={latestPost.author_img} 
-                        alt={latestPost.author}
-                        width={40}
-                        height={40}
-                        className="w-10 h-10 rounded-full"
-                      />
+                  <div className="flex items-center justify-between border-t-2 border-white pt-6">
+                    <div className="flex items-center gap-4">
+                      <div className="border-2 border-white">
+                        <Image 
+                          src={latestPost.author_img} 
+                          alt={latestPost.author}
+                          width={48}
+                          height={48}
+                          className="w-12 h-12 filter grayscale"
+                        />
+                      </div>
                       <div>
-                        <p className="font-semibold text-gray-900">{latestPost.author}</p>
-                        <p className="text-sm text-gray-500">{new Date(latestPost.date).toLocaleDateString()}</p>
+                        <p className="font-black text-white uppercase text-lg">{latestPost.author}</p>
+                        <p className="text-sm text-gray-400 uppercase font-bold">{new Date(latestPost.date).toLocaleDateString()}</p>
                       </div>
                     </div>
                     <a 
                       href={`/blog/${latestPost.slug}`}
-                      className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                      className="bg-white text-black px-6 py-3 font-black uppercase tracking-wider border-4 border-black shadow-custom hover:bg-gray-200 transition-all duration-200"
                     >
-                      Read More
+                      READ MORE
                     </a>
                   </div>
                 </div>
@@ -130,11 +132,11 @@ export default function Home() {
       )}
 
       {/* Quick Search Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-white border-b-4 border-black">
         <div className="max-w-7xl mx-auto px-5 md:px-12 lg:px-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Find What Interests You</h2>
-            <p className="text-xl text-gray-600">Search through our articles or browse by category</p>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-black text-black mb-6 uppercase tracking-wider">FIND WHAT INTERESTS YOU</h2>
+            <p className="text-xl text-gray-800 uppercase tracking-wide font-bold">SEARCH THROUGH OUR ARTICLES OR BROWSE BY CATEGORY</p>
           </div>
           
           {/* Search and Filter */}
@@ -147,20 +149,20 @@ export default function Home() {
       </section>
 
       {/* Featured Posts Grid */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-black border-b-4 border-white">
         <div className="max-w-7xl mx-auto px-5 md:px-12 lg:px-20">
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center justify-between mb-16 flex-col md:flex-row gap-8">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured Posts</h2>
-              <p className="text-xl text-gray-600">Handpicked articles just for you</p>
+              <h2 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-wider">FEATURED POSTS</h2>
+              <p className="text-xl text-gray-300 uppercase tracking-wide font-bold">HANDPICKED ARTICLES JUST FOR YOU</p>
             </div>
             <a 
               href="/blogs"
-              className="text-blue-600 hover:text-blue-800 font-semibold text-lg flex items-center gap-2 transition-colors"
+              className="bg-white text-black px-6 py-4 font-black text-lg uppercase tracking-wider border-4 border-black shadow-custom hover:bg-gray-200 transition-all duration-200 flex items-center gap-3"
             >
-              View All Posts
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              VIEW ALL POSTS
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={4}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
             </a>
           </div>
