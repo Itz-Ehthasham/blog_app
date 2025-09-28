@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import connectDB from "../../../../config/db.js";
 import Blog from "../../../../models/BlogModel.js";
 
-export async function GET(request) {
+export async function GET() {
   try {
     await connectDB();
     console.log("API route hit: GET /api/posts");

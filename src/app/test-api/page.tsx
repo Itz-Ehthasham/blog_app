@@ -30,6 +30,7 @@ export default function TestAPIPage() {
           setError(data.message || 'Failed to fetch posts');
         }
       } catch (err) {
+        console.error('API test error:', err);
         setError('Network error');
       } finally {
         setLoading(false);
@@ -82,7 +83,7 @@ export default function TestAPIPage() {
       </div>
       
       <div className="mt-8 p-4 border border-green-500 bg-green-900/20">
-        <h3 className="text-green-400 font-bold mb-2">✅ What's Working:</h3>
+        <h3 className="text-green-400 font-bold mb-2">✅ What&apos;s Working:</h3>
         <ul className="text-sm space-y-1">
           <li>• MongoDB connection established</li>
           <li>• Database seeded with sample data</li>

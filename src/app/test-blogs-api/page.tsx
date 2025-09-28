@@ -3,8 +3,8 @@
 import { useState } from 'react';
 
 export default function TestBlogsAPI() {
-  const [listResult, setListResult] = useState<any>(null);
-  const [singleResult, setSingleResult] = useState<any>(null);
+  const [listResult, setListResult] = useState<{ status?: number; data?: unknown; error?: string } | null>(null);
+  const [singleResult, setSingleResult] = useState<{ status?: number; data?: unknown; error?: string } | null>(null);
   const [testSlug, setTestSlug] = useState('getting-started-with-next-js-15');
   const [loading, setLoading] = useState(false);
 
@@ -14,8 +14,8 @@ export default function TestBlogsAPI() {
       const response = await fetch('/api/blogs?page=1&limit=5&search=&category=');
       const data = await response.json();
       setListResult({ status: response.status, data });
-    } catch (error) {
-      setListResult({ error: error.message });
+    } catch (error: unknown) {
+      setListResult({ error: error instanceof Error ? error.message : 'An unknown error occurred' });
     } finally {
       setLoading(false);
     }
@@ -27,8 +27,8 @@ export default function TestBlogsAPI() {
       const response = await fetch(`/api/blogs/${testSlug}`);
       const data = await response.json();
       setSingleResult({ status: response.status, data });
-    } catch (error) {
-      setSingleResult({ error: error.message });
+    } catch (error: unknown) {
+      setSingleResult({ error: error instanceof Error ? error.message : 'An unknown error occurred' });
     } finally {
       setLoading(false);
     }
@@ -52,7 +52,7 @@ export default function TestBlogsAPI() {
           
           {listResult && (
             <div className="bg-gray-900 p-4 rounded">
-              <p className="text-green-400 mb-2">Status: {listResult.status || 'Error'}</p>
+              <p className="text-green-400 mb-2">Status: {listResult?.status || 'Error'}</p>
               <pre className="text-xs overflow-auto max-h-96">
                 {JSON.stringify(listResult, null, 2)}
               </pre>
@@ -80,7 +80,7 @@ export default function TestBlogsAPI() {
           
           {singleResult && (
             <div className="bg-gray-900 p-4 rounded">
-              <p className="text-green-400 mb-2">Status: {singleResult.status || 'Error'}</p>
+              <p className="text-green-400 mb-2">Status: {singleResult?.status || 'Error'}</p>
               <pre className="text-xs overflow-auto max-h-96">
                 {JSON.stringify(singleResult, null, 2)}
               </pre>
@@ -90,7 +90,7 @@ export default function TestBlogsAPI() {
       </div>
 
       <div className="mt-8 p-4 border border-green-500 bg-green-900/20">
-        <h3 className="text-green-400 font-bold mb-2">✅ What's been implemented:</h3>
+        <h3 className="text-green-400 font-bold mb-2">✅ What&apos;s been implemented:</h3>
         <ul className="text-sm space-y-1">
           <li>• <strong>GET /api/blogs</strong> → Paginated list with search/filter support</li>
           <li>• <strong>GET /api/blogs/[slug]</strong> → Single blog post by slug</li>
@@ -106,7 +106,7 @@ export default function TestBlogsAPI() {
           <li>• <strong>Pagination:</strong> ?page=1&limit=10</li>
           <li>• <strong>Search:</strong> ?search=keyword</li>
           <li>• <strong>Filter:</strong> ?category=Technology</li>
-          <li>• <strong>Response format:</strong> {'{ success, data, page, limit, total, pages, hasMore }'}</li>
+          <li>• <strong>Response format:</strong> {`{ success, data, page, limit, total, pages, hasMore }`}</li>
         </ul>
       </div>
     </div>

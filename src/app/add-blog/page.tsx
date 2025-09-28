@@ -52,7 +52,8 @@ export default function AddBlogPage() {
         setMessage(data.message);
         setMessageType('error');
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Signup error:', err);
       setMessage('Network error. Please try again.');
       setMessageType('error');
     } finally {
@@ -117,7 +118,8 @@ export default function AddBlogPage() {
         setMessage(data.message);
         setMessageType('error');
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Blog creation error:', err);
       setMessage('Network error. Please try again.');
       setMessageType('error');
     } finally {
@@ -349,7 +351,7 @@ export default function AddBlogPage() {
                   disabled={loading}
                 />
                 <p className="text-green-400 text-sm mt-2 font-bold uppercase tracking-wide">
-                  ✓ IT'S COMPLETELY FREE
+                  ✓ IT&apos;S COMPLETELY FREE
                 </p>
               </div>
 

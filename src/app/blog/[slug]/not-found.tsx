@@ -21,8 +21,8 @@ export default function BlogNotFound() {
             </h2>
             
             <p className="text-gray-300 mb-8 text-lg max-w-2xl mx-auto">
-              THE BLOG POST YOU'RE LOOKING FOR DOESN'T EXIST OR HAS BEEN MOVED. 
-              DON'T WORRY, WE HAVE PLENTY OF OTHER GREAT CONTENT FOR YOU TO EXPLORE.
+              THE BLOG POST YOU&apos;RE LOOKING FOR DOESN&apos;T EXIST OR HAS BEEN MOVED. 
+              DON&apos;T WORRY, WE HAVE PLENTY OF OTHER GREAT CONTENT FOR YOU TO EXPLORE.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

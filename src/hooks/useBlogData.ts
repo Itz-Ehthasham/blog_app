@@ -26,19 +26,19 @@ export function useBlogData(): UseBlogDataReturn {
           const result = await response.json();
           if (result.success && result.data && result.data.length > 0) {
             // Transform MongoDB data to match our BlogPost interface
-            const transformedPosts = result.data.map((post: any) => ({
-              id: post._id,
-              title: post.title,
-              description: post.description,
-              image: post.image,
-              date: new Date(post.date || post.createdAt).getTime(),
-              category: post.category,
-              author: post.author,
-              author_img: post.author_img,
-              slug: post.slug,
-              content: post.content,
-              readTime: post.readTime,
-              tags: post.tags
+            const transformedPosts = result.data.map((post: Record<string, unknown>) => ({
+              id: String(post._id),
+              title: String(post.title),
+              description: String(post.description),
+              image: String(post.image),
+              date: new Date((post.date as string) || (post.createdAt as string)).getTime(),
+              category: String(post.category),
+              author: String(post.author),
+              author_img: String(post.author_img),
+              slug: String(post.slug),
+              content: post.content as BlogPost['content'],
+              readTime: String(post.readTime),
+              tags: post.tags as string[]
             }));
             setPosts(transformedPosts);
             return;
