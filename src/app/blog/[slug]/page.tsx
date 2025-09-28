@@ -2,22 +2,65 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getBlogPostBySlug, blog_data, assets, BlogPost } from '@/lib/assets';
+import connectDB from '../../../../config/db';
+import Blog from '../../../../models/BlogModel';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }
 
 // Generate static params for all blog posts
-export function generateStaticParams() {
-  return blog_data.map((post) => ({
+export async function generateStaticParams() {
+  // Start with static data
+  const staticParams = blog_data.map((post) => ({
     slug: post.slug,
   }));
+
+  // Try to add MongoDB slugs
+  try {
+    await connectDB();
+    const mongoPosts = await Blog.find({}).select('slug').lean();
+    const mongoParams = mongoPosts.map((post: any) => ({
+      slug: String(post.slug),
+    }));
+    
+    // Combine and deduplicate
+    const allParams = [...staticParams, ...mongoParams];
+    const uniqueParams = allParams.filter((param, index, self) => 
+      index === self.findIndex((p) => p.slug === param.slug)
+    );
+    
+    return uniqueParams;
+  } catch (error) {
+    console.error('Failed to fetch MongoDB slugs for static generation:', error);
+    return staticParams; // Fallback to static data only
+  }
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  let post = getBlogPostBySlug(slug);
+  
+  // If not found in static data, check MongoDB
+  if (!post) {
+    try {
+      await connectDB();
+      const mongoPost = await Blog.findOne({ slug })
+        .select('title description image')
+        .lean();
+      
+      if (mongoPost) {
+        post = {
+          title: String(mongoPost.title),
+          description: String(mongoPost.description),
+          image: String(mongoPost.image),
+        } as BlogPost;
+      }
+    } catch (error) {
+      console.error('Failed to fetch metadata from MongoDB:', error);
+    }
+  }
   
   if (!post) {
     return {
@@ -41,34 +84,32 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   let post = getBlogPostBySlug(slug);
 
-  // If not found in static data, try fetching from MongoDB using new slug API
+  // If not found in static data, try fetching directly from MongoDB (server-side)
   if (!post) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/blogs/${slug}`, {
-        cache: 'no-store'
-      });
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.data) {
-          const mongoPost = data.data;
-          post = {
-            id: mongoPost._id,
-            title: mongoPost.title,
-            description: mongoPost.description,
-            image: mongoPost.image,
-            date: new Date(mongoPost.date || mongoPost.createdAt).getTime(),
-            category: mongoPost.category,
-            author: mongoPost.author,
-            author_img: mongoPost.author_img,
-            slug: mongoPost.slug,
-            content: mongoPost.content,
-            readTime: mongoPost.readTime,
-            tags: mongoPost.tags
-          } as BlogPost;
-        }
+      await connectDB();
+      const mongoPost = await Blog.findOne({ slug })
+        .select('title description slug date category author author_img image readTime tags content createdAt')
+        .lean();
+
+      if (mongoPost) {
+        post = {
+          id: String(mongoPost._id) as unknown as number, // keep type compatibility with existing interface
+          title: String(mongoPost.title),
+          description: String(mongoPost.description),
+          image: String(mongoPost.image),
+          date: new Date((mongoPost as any).date || (mongoPost as any).createdAt).getTime(),
+          category: String(mongoPost.category),
+          author: String(mongoPost.author),
+          author_img: String(mongoPost.author_img),
+          slug: String(mongoPost.slug),
+          content: (mongoPost as any).content,
+          readTime: (mongoPost as any).readTime,
+          tags: (mongoPost as any).tags,
+        } as BlogPost;
       }
     } catch (error) {
-      console.error('Failed to fetch blog post:', error);
+      console.error('Failed to query MongoDB for blog post:', error);
     }
   }
 
